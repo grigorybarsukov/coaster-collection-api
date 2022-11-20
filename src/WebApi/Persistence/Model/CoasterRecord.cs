@@ -1,6 +1,6 @@
 using FileHelpers;
 
-namespace WebApi.Domain;
+namespace WebApi.Persistence.Model;
 
 [DelimitedRecord(",")]
 [IgnoreFirst]

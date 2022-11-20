@@ -1,6 +1,6 @@
 using FileHelpers;
 
-namespace WebApi.Domain;
+namespace WebApi.Persistence.Model;
 
 [DelimitedRecord(",")]
 public class Coaster
@@ -23,20 +23,23 @@ public class Coaster
         Country = record.Country;
         Shape = record.Shape;
         Reverse = record.Reverse;
-        
+
         var beerType = new List<string> { record.Hierarchy };
         if (string.IsNullOrEmpty(record.Hierarchy2) == false)
         {
             beerType.Add(record.Hierarchy2);
         }
+
         if (string.IsNullOrEmpty(record.Hierarchy3) == false)
         {
             beerType.Add(record.Hierarchy3);
         }
+
         if (string.IsNullOrEmpty(record.Hierarchy4) == false)
         {
             beerType.Add(record.Hierarchy4);
         }
+
         if (string.IsNullOrEmpty(record.Hierarchy5) == false)
         {
             beerType.Add(record.Hierarchy5);

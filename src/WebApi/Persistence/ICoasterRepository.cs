@@ -1,5 +1,5 @@
 using WebApi.Controllers;
-using WebApi.Domain;
+using WebApi.Persistence.Model;
 
 namespace WebApi.Persistence;
 

@@ -4,8 +4,10 @@ public class CoasterParameters
 {
     const int MaxPageSize = 50;
     public int PageNumber { get; set; } = 1;
+    public string SortBy { get; set; } = "";
+    public string SortByDescending { get; set; } = "";
     private int _pageSize = 10;
-
+    
     public int PageSize
     {
         get => _pageSize;
