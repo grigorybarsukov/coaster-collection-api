@@ -1,0 +1,20 @@
+---
+version: '3.8'
+
+services:
+  web-api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=dev-compose
+    networks:
+      - coaster-dev-network
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+    ports:
+      - "14333:3000"
+
+networks:
+  coaster-dev-network:
