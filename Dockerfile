@@ -8,5 +8,6 @@ RUN dotnet publish "src/WebApi/WebApi.csproj" -c Debug -o /publish --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 WORKDIR /app
 COPY --from=build publish/ ./
-EXPOSE 3000
+EXPOSE 80
+EXPOSE 443
 ENTRYPOINT ["dotnet", "WebApi.dll"]

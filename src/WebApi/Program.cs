@@ -1,4 +1,6 @@
+using WebApi;
 using WebApi.Persistence;
+using WebApi.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,17 +29,32 @@ builder.Services.AddSwaggerDocument(config =>
     };
 });
 
-builder.Services.AddSingleton<ICoasterRepository,CoasterRepository>();
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .AddEnvironmentVariables()
+    .Build();
+builder.Services.AddOptions();
+builder.Services.Configure<ServiceConfiguration>(configuration);
+
+builder.Services.AddSingleton<ICoasterRepository, CoasterRepository>();
+builder.Services.AddSingleton<IImageProvider, ImageProvider>();
+builder.Services.AddCors(o => o.AddDefaultPolicy(cb => cb
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin()
+    .SetPreflightMaxAge(TimeSpan.FromMinutes(10))));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseOpenApi();
     app.UseOpenApi();
     app.UseSwaggerUi3();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
