@@ -30,13 +30,9 @@ public class CoasterRepository : ICoasterRepository
     public IEnumerable<Coaster> Get(CoasterParameters parameters)
     {
         var query = Coasters.AsQueryable();
-
         query = ApplySort(parameters, query);
-
-        return query
-            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-            .Take(parameters.PageSize)
-            .ToList();
+        query = ApplyPagination(parameters, query);
+        return query.ToList();
     }
 
     private IQueryable<Coaster> ApplySort(CoasterParameters parameters, IQueryable<Coaster> query)
@@ -51,5 +47,16 @@ public class CoasterRepository : ICoasterRepository
         return string.IsNullOrEmpty(parameters.SortByDescending)
             ? query.OrderBy(c => propertyInfo == null ? c.Id : propertyInfo.GetValue(c))
             : query.OrderByDescending(c => propertyInfo == null ? c.Id : propertyInfo.GetValue(c));
+    }
+
+    private IQueryable<Coaster> ApplyPagination(CoasterParameters parameters, IQueryable<Coaster> query)
+    {
+        if (parameters.PageSize.HasValue == false)
+        {
+            return query;
+        }
+
+        return query.Skip((parameters.PageNumber - 1) * parameters.PageSize.Value)
+                .Take(parameters.PageSize.Value);
     }
 }
