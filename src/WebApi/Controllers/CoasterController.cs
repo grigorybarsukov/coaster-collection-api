@@ -21,16 +21,16 @@ public class CoasterController : ControllerBase
 
     [HttpGet("all")]
     [Produces(typeof(Coaster[]))]
-    public IActionResult GetAllCoasters()
+    public IActionResult GetAllCoasters([FromQuery] CoasterFilter filter)
     {
-        return Ok(_coasterRepository.GetAll());
+        return Ok(_coasterRepository.GetAll(filter));
     }
 
     [HttpGet]
     [Produces(typeof(Coaster[]))]
-    public IActionResult Get([FromQuery] CoasterParameters parameters)
+    public IActionResult Get([FromQuery] CoasterParameters parameters, CoasterFilter filter)
     {
-        return Ok(_coasterRepository.Get(parameters));
+        return Ok(_coasterRepository.Get(parameters, filter));
     }
 
     [HttpGet]
@@ -39,7 +39,7 @@ public class CoasterController : ControllerBase
     public IActionResult GetImage([FromRoute] int id, [FromQuery] bool reverse)
     {
         try
-        { 
+        {
             var imageStream = _imageProvider.GetImage(id, reverse);
             return new FileStreamResult(imageStream, PngImageMimeType);
         }

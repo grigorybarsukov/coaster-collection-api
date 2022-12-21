@@ -5,6 +5,6 @@ namespace WebApi.Persistence;
 
 public interface ICoasterRepository
 {
-    IEnumerable<Coaster> GetAll();
-    IEnumerable<Coaster> Get(CoasterParameters parameters);
+    IEnumerable<Coaster> GetAll(CoasterFilter filter);
+    IEnumerable<Coaster> Get(CoasterParameters parameters, CoasterFilter filter);
 }

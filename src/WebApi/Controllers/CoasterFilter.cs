@@ -2,8 +2,10 @@ namespace WebApi.Controllers;
 
 public class CoasterFilter
 {
-    public int PageNumber { get; set; } = 1;
-    public int? PageSize { get; set; }
-    public string SortBy { get; set; } = "";
-    public string SortByDescending { get; set; } = "";
+    public IEnumerable<string>? Type { get; set; }
+    public IEnumerable<string>? Brand { get; set; }
+    public IEnumerable<string>? Kind { get; set; }
+    public IEnumerable<string>? Country { get; set; }
+    public IEnumerable<string>? Shape { get; set; }
+    public string? Reverse { get; set; }
 }
