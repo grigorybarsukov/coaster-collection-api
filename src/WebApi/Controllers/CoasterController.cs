@@ -28,7 +28,7 @@ public class CoasterController : ControllerBase
 
     [HttpGet]
     [Produces(typeof(Coaster[]))]
-    public IActionResult Get([FromQuery] CoasterParameters parameters, CoasterFilter filter)
+    public IActionResult Get([FromQuery] CoasterParameters parameters, [FromQuery] CoasterFilter filter)
     {
         return Ok(_coasterRepository.Get(parameters, filter));
     }

@@ -33,8 +33,8 @@ public class CoasterRepository : ICoasterRepository
     {
         var query = Coasters.AsQueryable();
         query = ApplySort(parameters, query);
-        query = ApplyPagination(parameters, query);
         query = ApplyFilter(filter, query);
+        query = ApplyPagination(parameters, query);
         return query.ToList();
     }
 
